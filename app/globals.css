@@ -1,0 +1,204 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+:root {
+  --radius: 0.625rem;
+  --background: oklch(0.98 0.01 240);
+  --foreground: oklch(0.12 0.05 270);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.12 0.05 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.12 0.05 270);
+  --primary: oklch(0.55 0.25 260);
+  --primary-foreground: oklch(0.98 0.01 240);
+  --secondary: oklch(0.92 0.02 250);
+  --secondary-foreground: oklch(0.25 0.08 270);
+  --muted: oklch(0.94 0.02 240);
+  --muted-foreground: oklch(0.45 0.05 260);
+  --accent: oklch(0.88 0.08 280);
+  --accent-foreground: oklch(0.15 0.06 270);
+  --destructive: oklch(0.65 0.25 15);
+  --border: oklch(0.88 0.02 240);
+  --input: oklch(0.95 0.01 240);
+  --ring: oklch(0.55 0.25 260);
+}
+
+.dark {
+  --background: oklch(0.08 0.03 270);
+  --foreground: oklch(0.95 0.01 240);
+  --card: oklch(0.12 0.04 270);
+  --card-foreground: oklch(0.95 0.01 240);
+  --popover: oklch(0.12 0.04 270);
+  --popover-foreground: oklch(0.95 0.01 240);
+  --primary: oklch(0.7 0.2 260);
+  --primary-foreground: oklch(0.08 0.03 270);
+  --secondary: oklch(0.18 0.05 270);
+  --secondary-foreground: oklch(0.9 0.02 240);
+  --muted: oklch(0.15 0.04 270);
+  --muted-foreground: oklch(0.65 0.05 260);
+  --accent: oklch(0.25 0.08 280);
+  --accent-foreground: oklch(0.95 0.01 240);
+  --destructive: oklch(0.75 0.2 15);
+  --border: oklch(0.25 0.05 270);
+  --input: oklch(0.15 0.04 270);
+  --ring: oklch(0.7 0.2 260);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    background-image: linear-gradient(
+      135deg,
+      oklch(0.98 0.01 240) 0%,
+      oklch(0.96 0.02 250) 25%,
+      oklch(0.97 0.015 245) 50%,
+      oklch(0.95 0.025 255) 100%
+    );
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
+
+  .dark body {
+    background-image: linear-gradient(
+      135deg,
+      oklch(0.08 0.03 270) 0%,
+      oklch(0.06 0.04 280) 25%,
+      oklch(0.07 0.035 275) 50%,
+      oklch(0.05 0.05 285) 100%
+    );
+  }
+
+  html[dir="rtl"] {
+    text-align: right;
+  }
+
+  html[dir="rtl"] input {
+    text-align: right;
+  }
+
+  html[dir="rtl"] .animate-spin {
+    animation-direction: reverse;
+  }
+
+  html[dir="rtl"] [data-sonner-toaster] {
+    direction: rtl;
+  }
+
+  html[dir="rtl"] [data-sonner-toast] {
+    text-align: right;
+  }
+
+  /* Success Toast - Modern Green */
+  [data-sonner-toast][data-type="success"] {
+    background: #ecfdf5 !important;
+    border: 1px solid #a7f3d0 !important;
+    color: #047857 !important;
+    color: black;
+  }
+
+  [data-sonner-toast][data-type="success"] [data-icon] {
+    color: #10b981 !important;
+  }
+
+  /* Error Toast - Softer Red */
+  [data-sonner-toast][data-type="error"] {
+    background: #fef2f2 !important;
+    border: 1px solid #fca5a5 !important;
+    color: #dc2626 !important;
+  }
+
+  [data-sonner-toast][data-type="error"] [data-icon] {
+    color: #f87171 !important;
+  }
+
+  /* Warning Toast - Orange/Amber */
+  [data-sonner-toast][data-type="warning"] {
+    background: #fffbeb !important;
+    border: 1px solid #fcd34d !important;
+    color: #d97706 !important;
+  }
+
+  [data-sonner-toast][data-type="warning"] [data-icon] {
+    color: #f59e0b !important;
+  }
+
+  /* Info Toast - Blue */
+  [data-sonner-toast][data-type="info"] {
+    background: #eff6ff !important;
+    border: 1px solid #93c5fd !important;
+    color: #1d4ed8 !important;
+  }
+
+  [data-sonner-toast][data-type="info"] [data-icon] {
+    color: #3b82f6 !important;
+  }
+
+  /* Dark Mode Colors */
+  .dark [data-sonner-toast][data-type="success"] {
+    background: #064e3b !important;
+    border: 1px solid #059669 !important;
+    color: #1dff96 !important;
+    color: black;
+  }
+
+  .dark [data-sonner-toast][data-type="error"] {
+    background: #7f1d1d !important;
+    border: 1px solid #dc2626 !important;
+    color: #ff3c3c !important;
+  }
+
+  .dark [data-sonner-toast][data-type="warning"] {
+    background: #78350f !important;
+    border: 1px solid #d97706 !important;
+    color: #fcd34d !important;
+  }
+
+  .dark [data-sonner-toast][data-type="info"] {
+    background: #1e3a8a !important;
+    border: 1px solid #1d4ed8 !important;
+    color: #93c5fd !important;
+  }
+
+  html[dir="rtl"] .relative .absolute.left-0 {
+    left: 0;
+    right: auto;
+  }
+
+  html[dir="rtl"] input[type="password"] {
+    padding-right: 3rem;
+    padding-left: 0.75rem;
+  }
+}
+input[type="password"]::-ms-reveal {
+  display: none;
+}
