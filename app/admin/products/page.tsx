@@ -42,6 +42,7 @@ import {
 import { ProtectedRoute } from "@/components/protected-route";
 import { useToast } from "@/hooks/use-toast";
 import Image from "next/image";
+import { axiosInstance } from "@/lib/axiosInstance";
 
 type Product = {
   id: string;
@@ -251,9 +252,6 @@ export default function ProductsPage() {
       return;
     }
 
-    setIsLoading(true);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-
     const productData = {
       name: formData.name,
       category: formData.category,
@@ -274,6 +272,10 @@ export default function ProductsPage() {
               )}`,
             ],
     };
+    setIsLoading(true);
+    // await new Promise((resolve) => setTimeout(resolve, 1000));
+    const request = await axiosInstance.get("/api/categories");
+    console.log(request);
 
     if (selectedProduct) {
       setProducts((prev) =>

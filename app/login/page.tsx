@@ -95,14 +95,14 @@ export default function LoginPage() {
           };
 
         if (typeof window !== "undefined") {
-          localStorage.setItem("admin-token", token);
+          localStorage.setItem("admin-token", token.accessToken);
           localStorage.setItem("user", JSON.stringify(user));
           localStorage.setItem("loginTime", new Date().toISOString());
         }
 
         setLoginState({ success: "خوش آمدید! ورود موفقیت‌آمیز بود 🎉" });
 
-        router.replace("/dashboard");
+        router.replace("/admin");
         return;
       } else {
         // Handle API errors

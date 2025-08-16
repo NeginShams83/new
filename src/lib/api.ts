@@ -1,5 +1,5 @@
 // API Configuration for Maktab90 Server
-const API_BASE_URL = 'https://nervous-jackson-pvcf9esfp.liara.run';
+const API_BASE_URL = "https://nervous-jackson-pvcf9esfp.liara.run";
 
 export interface LoginRequest {
   username: string;
@@ -45,45 +45,51 @@ class ApiClient {
     endpoint: string,
     options: RequestInit = {}
   ): Promise<T> {
-    const token = typeof window !== 'undefined' ? localStorage.getItem('admin-token') : null;
-    
+    const token =
+      typeof window !== "undefined"
+        ? localStorage.getItem("admin-token")
+        : null;
+
     const config: RequestInit = {
       ...options,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         ...(token && { Authorization: `Bearer ${token}` }),
         ...options.headers,
       },
     };
 
     const response = await fetch(`${this.baseUrl}${endpoint}`, config);
-    
+
     if (!response.ok) {
       const errorData = await response.json().catch(() => ({}));
-      
-      let errorMessage = 'خطا در ارتباط با سرور';
-      
+
+      let errorMessage = "خطا در ارتباط با سرور";
+
       // Handle different HTTP status codes
       switch (response.status) {
         case 400:
-          errorMessage = errorData.message || 'اطلاعات ارسالی نامعتبر است';
+          errorMessage = errorData.message || "اطلاعات ارسالی نامعتبر است";
           break;
         case 401:
-          errorMessage = errorData.message || 'نام کاربری یا رمز عبور اشتباه است';
+          errorMessage =
+            errorData.message || "نام کاربری یا رمز عبور اشتباه است";
           break;
         case 403:
-          errorMessage = errorData.message || 'شما دسترسی لازم را ندارید';
+          errorMessage = errorData.message || "شما دسترسی لازم را ندارید";
           break;
         case 404:
-          errorMessage = errorData.message || 'سرویس مورد نظر یافت نشد';
+          errorMessage = errorData.message || "سرویس مورد نظر یافت نشد";
           break;
         case 500:
-          errorMessage = errorData.message || 'خطای داخلی سرور';
+          errorMessage = errorData.message || "خطای داخلی سرور";
           break;
         default:
-          errorMessage = errorData.message || `خطا ${response.status}: ${response.statusText}`;
+          errorMessage =
+            errorData.message ||
+            `خطا ${response.status}: ${response.statusText}`;
       }
-      
+
       throw {
         message: errorMessage,
         status: response.status,
@@ -95,34 +101,34 @@ class ApiClient {
   }
 
   async login(credentials: LoginRequest): Promise<LoginResponse> {
-    return this.makeRequest<LoginResponse>('/@admin/login', {
-      method: 'POST',
+    return this.makeRequest<LoginResponse>("/@admin/login", {
+      method: "POST",
       body: JSON.stringify(credentials),
     });
   }
 
   async logout(): Promise<void> {
     try {
-      await this.makeRequest('/api/auth/logout', {
-        method: 'POST',
+      await this.makeRequest("/api/auth/logout", {
+        method: "POST",
       });
     } catch (error) {
       // Even if logout fails on server, clear local storage
-      console.warn('Logout request failed, but clearing local data');
+      console.warn("Logout request failed, but clearing local data");
     } finally {
-      if (typeof window !== 'undefined') {
-        localStorage.removeItem('admin-token');
+      if (typeof window !== "undefined") {
+        localStorage.removeItem("admin-token");
       }
     }
   }
 
-  async getCurrentUser(): Promise<LoginResponse['user']> {
-    return this.makeRequest<LoginResponse['user']>('/api/auth/me');
+  async getCurrentUser(): Promise<LoginResponse["user"]> {
+    return this.makeRequest<LoginResponse["user"]>("/api/auth/me");
   }
 
   async refreshToken(): Promise<LoginResponse> {
-    return this.makeRequest<LoginResponse>('/api/auth/refresh', {
-      method: 'POST',
+    return this.makeRequest<LoginResponse>("/api/auth/refresh", {
+      method: "POST",
     });
   }
 }
@@ -132,7 +138,7 @@ export const apiClient = new ApiClient();
 // Utility functions
 export const isTokenExpired = (token: string): boolean => {
   try {
-    const payload = JSON.parse(atob(token.split('.')[1]));
+    const payload = JSON.parse(atob(token.split(".")[1]));
     const currentTime = Date.now() / 1000;
     return payload.exp < currentTime;
   } catch {
@@ -141,20 +147,20 @@ export const isTokenExpired = (token: string): boolean => {
 };
 
 export const getAuthToken = (): string | null => {
-  if (typeof window !== 'undefined') {
-    return localStorage.getItem('admin-token');
+  if (typeof window !== "undefined") {
+    return localStorage.getItem("admin-token");
   }
   return null;
 };
 
 export const setAuthToken = (token: string): void => {
-  if (typeof window !== 'undefined') {
-    localStorage.setItem('admin-token', token);
+  if (typeof window !== "undefined") {
+    localStorage.setItem("admin-token", token);
   }
 };
 
 export const removeAuthToken = (): void => {
-  if (typeof window !== 'undefined') {
-    localStorage.removeItem('admin-token');
+  if (typeof window !== "undefined") {
+    localStorage.removeItem("admin-token");
   }
 };
