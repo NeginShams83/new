@@ -5,15 +5,15 @@ import { useRouter } from "next/navigation";
 import { useAuth } from "@/contexts/auth-context";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { 
-  User, 
-  LogOut, 
-  Settings, 
-  BarChart3, 
-  Package, 
+import {
+  User,
+  LogOut,
+  Settings,
+  BarChart3,
+  Package,
   Users,
   Home,
-  ArrowLeft
+  ArrowLeft,
 } from "lucide-react";
 import Link from "next/link";
 
@@ -34,7 +34,10 @@ export default function DashboardPage() {
 
   if (isLoading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center" dir="rtl">
+      <div
+        className="min-h-screen bg-gray-50 flex items-center justify-center"
+        dir="rtl"
+      >
         <div className="text-center">
           <div className="w-8 h-8 border-4 border-blue-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
           <p className="text-gray-600">در حال بارگذاری...</p>
@@ -58,14 +61,18 @@ export default function DashboardPage() {
                 <BarChart3 className="w-6 h-6" />
               </div>
               <div>
-                <h1 className="text-xl font-semibold text-gray-900">پنل مدیریت</h1>
+                <h1 className="text-xl font-semibold text-gray-900">
+                  پنل مدیریت
+                </h1>
                 <p className="text-sm text-gray-500">تک لند</p>
               </div>
             </div>
-            
+
             <div className="flex items-center gap-4">
               <div className="text-right">
-                <p className="text-sm font-medium text-gray-900">خوش آمدید، {user?.username}</p>
+                <p className="text-sm font-medium text-gray-900">
+                  خوش آمدید، {user?.username}
+                </p>
                 <p className="text-xs text-gray-500">{user?.role || "مدیر"}</p>
               </div>
               <div className="bg-gray-100 w-10 h-10 rounded-full flex items-center justify-center">
@@ -145,9 +152,7 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent>
               <div className="text-2xl font-bold">۸۹</div>
-              <p className="text-xs text-muted-foreground">
-                +۱۲ سفارش امروز
-              </p>
+              <p className="text-xs text-muted-foreground">+۱۲ سفارش امروز</p>
             </CardContent>
           </Card>
         </div>
@@ -163,11 +168,17 @@ export default function DashboardPage() {
                 <Package className="w-6 h-6" />
                 مدیریت محصولات
               </Button>
-              <Button variant="outline" className="flex items-center gap-2 h-20 flex-col justify-center">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 h-20 flex-col justify-center"
+              >
                 <Users className="w-6 h-6" />
                 مدیریت کاربران
               </Button>
-              <Button variant="outline" className="flex items-center gap-2 h-20 flex-col justify-center">
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 h-20 flex-col justify-center"
+              >
                 <Settings className="w-6 h-6" />
                 تنظیمات
               </Button>

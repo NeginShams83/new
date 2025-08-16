@@ -15,6 +15,7 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Eye, EyeOff, ShoppingBag, AlertCircle } from "lucide-react";
+import { useAuth } from "@/contexts/auth-context";
 
 interface FormErrors {
   username?: string;
@@ -82,7 +83,6 @@ export default function LoginPage() {
       });
 
       const data = await response.json();
-      console.log("Login response:", data);
 
       if (response.ok) {
         // Handle successful login - adapt to actual API response format
@@ -102,9 +102,8 @@ export default function LoginPage() {
 
         setLoginState({ success: "خوش آمدید! ورود موفقیت‌آمیز بود 🎉" });
 
-        setTimeout(() => {
-          router.push("dashboard");
-        }, 1500);
+        router.replace("/dashboard");
+        return;
       } else {
         // Handle API errors
         const errorMessage =

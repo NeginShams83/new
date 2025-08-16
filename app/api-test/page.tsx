@@ -18,24 +18,32 @@ export default function ApiTestPage() {
 
     try {
       console.log("Testing API call to /@admin/login");
-      
-      const response = await fetch("https://nervous-jackson-pvcf9esfp.liara.run/@admin/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ username, password }),
-      });
+
+      const response = await fetch(
+        "https://nervous-jackson-pvcf9esfp.liara.run/@admin/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ username, password }),
+        }
+      );
 
       const data = await response.json();
-      
-      setResult(JSON.stringify({
-        status: response.status,
-        statusText: response.statusText,
-        ok: response.ok,
-        data: data
-      }, null, 2));
 
+      setResult(
+        JSON.stringify(
+          {
+            status: response.status,
+            statusText: response.statusText,
+            ok: response.ok,
+            data: data,
+          },
+          null,
+          2
+        )
+      );
     } catch (error) {
       setResult("Network Error: " + error.message);
     } finally {
@@ -61,7 +69,7 @@ export default function ApiTestPage() {
                 placeholder="نام کاربری را وارد کنید"
               />
             </div>
-            
+
             <div>
               <Label htmlFor="password">رمز عبور:</Label>
               <Input
